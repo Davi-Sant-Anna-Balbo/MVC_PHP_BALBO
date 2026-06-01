@@ -1,0 +1,46 @@
+<?php
+
+include '../config/conexao.php';
+include '../controllers/FilmeController.php';
+include '../views/layouts/header.php';
+
+$controller = new FilmeController($conexao);
+
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+    $id = $_GET['id'] ?? null;
+
+    switch ($action) {
+
+        case 'adicionar':
+            include '../views/filmes/adicionar.php';
+            break;
+
+        case 'editar':
+            if ($id) {
+                $filme = $controller->buscar($id);
+                include '../views/filmes/editar.php';
+            }
+            break;
+
+        case 'deletar':
+            if ($id) {
+                $controller->deletar($id);
+                header("Location: index.php?mensagem=Filme deletado com sucesso!");
+                exit();
+            }
+            break;
+
+        default:
+            $filmes = $controller->listar();
+            include '../views/filmes/index.php';
+            break;
+    }
+} else {
+    $filmes = $controller->listar();
+    include '../views/filmes/index.php';
+}
+
+include '../views/layouts/footer.php';
+
+?>
