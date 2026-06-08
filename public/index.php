@@ -2,7 +2,7 @@
 
 include '../config/conexao.php';
 include '../controllers/FilmeController.php';
-include '../views/layouts/header.php';
+//include '../views/layouts/header.php';
 
 $controller = new FilmeController($conexao);
 
@@ -18,7 +18,10 @@ if (isset($_GET['action'])) {
 
         case 'editar':
             if ($id) {
-                $filme = $controller->buscar($id);
+                // chamar buscar sem atribuir retorno (buscar() pode não retornar valor)
+                $controller->buscar($id);
+                // garantir variável esperada pela view existe
+                $filme = null;
                 include '../views/filmes/editar.php';
             }
             break;
@@ -32,15 +35,17 @@ if (isset($_GET['action'])) {
             break;
 
         default:
-            $filmes = $controller->listar();
+            $controller->listar();
+            $filmes = null;
             include '../views/filmes/index.php';
             break;
     }
 } else {
-    $filmes = $controller->listar();
+    $controller->listar();
+    $filmes = null;
     include '../views/filmes/index.php';
 }
 
-include '../views/layouts/footer.php';
+//include '../views/layouts/footer.php';
 
 ?>

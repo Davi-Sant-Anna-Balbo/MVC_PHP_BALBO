@@ -1,5 +1,7 @@
 <?php
 
+include '../config/conexao.php';
+include '../models/FilmeModel.php';
 class FilmeController {
 
     private $filmeModel;
