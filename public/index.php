@@ -35,14 +35,12 @@ if (isset($_GET['action'])) {
             break;
 
         default:
-            $controller->listar();
-            $filmes = null;
+            $filmes =  $controller->listar();;
             include '../views/filmes/index.php';
             break;
     }
 } else {
-    $controller->listar();
-    $filmes = null;
+    $filmes = $controller->listar();
     include '../views/filmes/index.php';
 }
 

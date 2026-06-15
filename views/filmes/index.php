@@ -9,7 +9,7 @@
         <th>Ações</th>
     </tr>
 
-    <?php if (!empty($filmes) && $filmes instanceof \mysqli_result && $filmes->num_rows > 0): ?>
+    <?php if ($filmes->num_rows > 0): ?>
         <?php while($linha = $filmes->fetch_assoc()): ?>
         <tr>
             <td><?= htmlspecialchars($linha['nome']) ?></td>
@@ -18,7 +18,7 @@
             <td><?= htmlspecialchars($linha['genero']) ?></td>
 
             <td>
-                <a href="?action=editar&id=<?= $linha['id'] ?>">Editar</a> |
+                <a href="?action=editar&id=<?= $linha['id'] ?>">Editar</a>
                 <a href="?action=deletar&id=<?= $linha['id'] ?>">Deletar</a>
             </td>
         </tr>
